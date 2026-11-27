@@ -228,7 +228,11 @@ async function fetchStatusPayload() {
   return await res.json();
 }
 
+let isFetchingStatus = false;
+
 async function fetchServerStatus() {
+  if (isFetchingStatus) return;
+  isFetchingStatus = true;
   const loading = document.getElementById("player-loading");
 
   try {
@@ -270,6 +274,8 @@ async function fetchServerStatus() {
     setPlayersStatus(false, 0, []);
     setOfflineBanner(false);
     renderPlayerGrid([]);
+  } finally {
+    isFetchingStatus = false;
   }
 }
 
@@ -284,8 +290,19 @@ if (refreshBtn) {
   });
 }
 
-// Initial fetch + poll every 5 seconds for near-instant updates
+// Initial fetch + live 2-second auto-polling (no page reload needed)
 fetchServerStatus();
-setInterval(fetchServerStatus, 5_000);
+setInterval(() => {
+  if (document.visibilityState === "visible") {
+    fetchServerStatus();
+  }
+}, 2_000);
+
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    fetchServerStatus();
+  }
+});
+window.addEventListener("focus", fetchServerStatus);
 
 
