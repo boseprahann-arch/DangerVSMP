@@ -34,6 +34,7 @@
         <a href="#about">About</a>
         <a href="#setup">Setup &amp; Join</a>
         <a href="#voice-chat">Voice Chat</a>
+        <a href="#players">Players</a>
         <a href="#offline" style="color: var(--orange);">Server Offline?</a>
         <a href="#checklist">Checklist</a>
       </nav>
@@ -76,8 +77,13 @@
         <div class="ip-card" role="region" aria-label="Server Connection Details">
           <div class="ip-card-top">
             <span class="ip-tag">SERVER ADDRESS (IP + PORT)</span>
-            <span class="ip-port-note">MC <code>26.2</code> • Fabric <code>0.20.1</code> • Port:
-              <code>30776</code></span>
+            <div class="ip-card-top-right">
+              <div class="server-status-badge" id="server-status-badge">
+                <span class="status-dot" id="status-dot"></span>
+                <span id="status-label">Checking…</span>
+              </div>
+              <span class="ip-port-note">MC <code>26.2</code> • Fabric <code>0.20.1</code> • Port: <code>30776</code></span>
+            </div>
           </div>
 
           <div class="ip-box">
@@ -413,8 +419,42 @@
       </div>
     </section>
 
+    <!-- Players Section -->
+    <section id="players" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker">COMMUNITY</span>
+          <h2>DangerVSMP Players</h2>
+          <p>
+            All players who have ever stepped foot on DangerVSMP — updated live whenever the server is online.
+          </p>
+        </div>
+
+        <!-- Live server status bar -->
+        <div class="players-status-bar">
+          <div class="server-status-badge large" id="players-status-badge">
+            <span class="status-dot" id="players-status-dot"></span>
+            <span id="players-status-label">Checking server…</span>
+          </div>
+          <span class="players-count-label" id="players-count-label"></span>
+        </div>
+
+        <!-- Player grid -->
+        <div class="player-grid" id="player-grid">
+          <div class="player-loading" id="player-loading">
+            <div class="spinner" aria-hidden="true"></div>
+            <span>Fetching player data…</span>
+          </div>
+        </div>
+
+        <p class="players-note">
+          Player names are automatically collected whenever the server is online and someone visits this page. New players appear here after their first visit during an active session.
+        </p>
+      </div>
+    </section>
+
     <!-- Server Offline Section -->
-    <section id="offline" class="section section-alt">
+    <section id="offline" class="section">
       <div class="container">
         <div class="section-header">
           <span class="section-kicker" style="color: var(--orange);">SERVER OFFLINE?</span>

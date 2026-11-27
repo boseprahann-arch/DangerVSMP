@@ -893,6 +893,201 @@ kbd {
   text-decoration: line-through;
 }
 
+/* Server Status Badge */
+.server-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+}
+
+.server-status-badge.large {
+  font-size: 1rem;
+  padding: 0.45rem 1rem;
+}
+
+.server-status-badge.online {
+  border-color: rgba(57, 231, 95, 0.4);
+  color: var(--green);
+  background: rgba(57, 231, 95, 0.08);
+}
+
+.server-status-badge.offline {
+  border-color: rgba(255, 69, 24, 0.4);
+  color: var(--orange);
+  background: rgba(255, 69, 24, 0.08);
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.server-status-badge.online .status-dot {
+  background: var(--green);
+  box-shadow: 0 0 7px var(--green);
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+.server-status-badge.offline .status-dot {
+  background: var(--orange);
+}
+
+.ip-card-top-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+}
+
+/* Players Section */
+.players-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.players-count-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.player-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.player-card:hover {
+  transform: translateY(-2px);
+  border-color: #3a465c;
+}
+
+.player-card.is-online {
+  border-color: rgba(57, 231, 95, 0.35);
+  background: rgba(57, 231, 95, 0.05);
+}
+
+.player-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  image-rendering: pixelated;
+  background: #0b0e14;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.player-info {
+  min-width: 0;
+}
+
+.player-name {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+
+.player-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.player-status.online {
+  color: var(--green);
+}
+
+.player-status.online .player-status-dot {
+  background: var(--green);
+  box-shadow: 0 0 5px var(--green);
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+.player-status.offline {
+  color: var(--text-muted);
+}
+
+.player-status.offline .player-status-dot {
+  background: var(--text-muted);
+}
+
+.player-loading {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--text-muted);
+  padding: 2.5rem;
+}
+
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--border);
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.player-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 2.5rem;
+}
+
+.players-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
 /* Offline Section */
 .offline-panel {
   max-width: 800px;
