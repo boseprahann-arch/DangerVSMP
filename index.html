@@ -34,6 +34,7 @@
         <a href="#about">About</a>
         <a href="#setup">Setup &amp; Join</a>
         <a href="#voice-chat">Voice Chat</a>
+        <a href="#offline" style="color: var(--orange);">Server Offline?</a>
         <a href="#checklist">Checklist</a>
       </nav>
 
@@ -412,8 +413,94 @@
       </div>
     </section>
 
+    <!-- Server Offline Section -->
+    <section id="offline" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-kicker" style="color: var(--orange);">SERVER OFFLINE?</span>
+          <h2>Start It Yourself — It's Easy!</h2>
+          <p>
+            DangerVSMP is hosted on <strong>Aternos</strong> (free hosting), which pauses the server when no one is playing. If you try to join and the server appears <strong>offline</strong>, just follow the steps below to start it back up!
+          </p>
+        </div>
+
+        <div class="offline-panel">
+          <div class="offline-warning-banner">
+            <span class="offline-dot" aria-hidden="true"></span>
+            <div>
+              <strong>Server is Offline / Paused</strong>
+              <p>Aternos stops the server automatically after a period of inactivity. You can start it back up using the shared starter account below.</p>
+            </div>
+          </div>
+
+          <div class="offline-steps">
+            <div class="offline-step">
+              <div class="offline-num">1</div>
+              <div>
+                <h4>Go to Aternos</h4>
+                <p>Open <a href="https://aternos.org" target="_blank" rel="noopener noreferrer">aternos.org</a> and click <strong>Login</strong>.</p>
+              </div>
+            </div>
+
+            <div class="offline-step">
+              <div class="offline-num">2</div>
+              <div>
+                <h4>Log in with the Starter Account</h4>
+                <p>Use the shared account below — it has <strong>Start access only</strong> (you cannot stop or restart the server).</p>
+                <div class="creds-card">
+                  <div class="cred-row">
+                    <span class="cred-label">Username</span>
+                    <div class="cred-value-wrap">
+                      <code class="cred-value">DangerVSMPStart</code>
+                      <button class="btn btn-small-copy" data-copy="DangerVSMPStart" type="button">
+                        <span class="copy-label">Copy</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="cred-row">
+                    <span class="cred-label">Password</span>
+                    <div class="cred-value-wrap">
+                      <code class="cred-value" id="pwd-text">12345678</code>
+                      <button class="btn btn-small-copy" data-copy="12345678" type="button">
+                        <span class="copy-label">Copy</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="offline-step">
+              <div class="offline-num">3</div>
+              <div>
+                <h4>Click <strong>Start</strong></h4>
+                <p>Once logged in, you will see the DangerVSMP server. Click the green <strong>Start</strong> button. The server takes about 1–2 minutes to come online.</p>
+              </div>
+            </div>
+
+            <div class="offline-step">
+              <div class="offline-num">4</div>
+              <div>
+                <h4>Join &amp; Play!</h4>
+                <p>Once the server shows <strong>Online</strong> on Aternos, go back to Minecraft and join as normal.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="offline-notice">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <p>This account has <strong>Start access only</strong>. You will not be able to stop, restart, or change any server settings — just start it when it's offline.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Interactive Setup Checklist -->
-    <section id="checklist" class="section section-alt">
+    <section id="checklist" class="section">
       <div class="container">
         <div class="section-header">
           <span class="section-kicker">PRE-FLIGHT CHECKLIST</span>
