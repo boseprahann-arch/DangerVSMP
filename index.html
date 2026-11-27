@@ -476,7 +476,12 @@
             <span class="status-dot" id="players-status-dot"></span>
             <span id="players-status-label">Checking server…</span>
           </div>
-          <span class="players-count-label" id="players-count-label"></span>
+          <div class="players-bar-right">
+            <span class="players-count-label" id="players-count-label"></span>
+            <button class="btn btn-small-copy" id="refresh-status-btn" type="button" title="Refresh server &amp; player status">
+              ↻ Refresh
+            </button>
+          </div>
         </div>
 
         <!-- Player grid -->
@@ -505,11 +510,11 @@
         </div>
 
         <div class="offline-panel">
-          <div class="offline-warning-banner">
-            <span class="offline-dot" aria-hidden="true"></span>
+          <div class="offline-warning-banner" id="offline-banner">
+            <span class="offline-dot" id="offline-banner-dot" aria-hidden="true"></span>
             <div>
-              <strong>Server is Offline / Paused</strong>
-              <p>Aternos stops the server automatically after a period of inactivity. You can start it back up using the shared starter account below.</p>
+              <strong id="offline-banner-title">Checking server status…</strong>
+              <p id="offline-banner-desc">Checking whether DangerVSMP is currently online or paused on Aternos.</p>
             </div>
           </div>
 

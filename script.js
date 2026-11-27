@@ -131,6 +131,23 @@ function setPlayersStatus(online, playerCount) {
   }
 }
 
+// Update the Server Offline section banner to match live status
+function setOfflineBanner(online) {
+  const banner = document.getElementById("offline-banner");
+  const title  = document.getElementById("offline-banner-title");
+  const desc   = document.getElementById("offline-banner-desc");
+  if (!banner || !title || !desc) return;
+
+  banner.classList.toggle("is-online", online);
+  if (online) {
+    title.textContent = "Server is Currently Online";
+    desc.textContent  = "DangerVSMP is up and running right now — you don't need to start it! Save these steps for later in case it goes offline.";
+  } else {
+    title.textContent = "Server is Offline / Paused";
+    desc.textContent  = "Aternos stops the server automatically after a period of inactivity. You can start it back up using the shared starter account below.";
+  }
+}
+
 // Render the player grid from the persisted list + currently online names
 function renderPlayerGrid(onlineNames) {
   const grid = document.getElementById("player-grid");
@@ -186,7 +203,7 @@ async function fetchServerStatus() {
   const loading = document.getElementById("player-loading");
 
   try {
-    const res  = await fetch(API_URL, { cache: "no-store" });
+    const res  = await fetch(`${API_URL}?t=${Date.now()}`, { cache: "no-store" });
     const data = await res.json();
 
     const online      = data.online === true;
@@ -216,18 +233,31 @@ async function fetchServerStatus() {
     if (loading) loading.style.display = "none";
     setHeroStatus(online, playerCount);
     setPlayersStatus(online, playerCount);
+    setOfflineBanner(online);
     renderPlayerGrid(onlineNames);
 
   } catch {
     if (loading) loading.style.display = "none";
     setHeroStatus(false, 0);
     setPlayersStatus(false, 0);
+    setOfflineBanner(false);
     renderPlayerGrid([]);
   }
 }
 
-// Initial fetch + poll every 60 seconds
+const refreshBtn = document.getElementById("refresh-status-btn");
+if (refreshBtn) {
+  refreshBtn.addEventListener("click", async () => {
+    refreshBtn.disabled = true;
+    refreshBtn.textContent = "Checking…";
+    await fetchServerStatus();
+    refreshBtn.textContent = "↻ Refresh";
+    refreshBtn.disabled = false;
+  });
+}
+
+// Initial fetch + poll every 20 seconds
 fetchServerStatus();
-setInterval(fetchServerStatus, 60_000);
+setInterval(fetchServerStatus, 20_000);
 
 

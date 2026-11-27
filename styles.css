@@ -1028,6 +1028,13 @@ kbd {
   font-weight: 600;
 }
 
+.players-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
 .player-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -1168,6 +1175,12 @@ kbd {
   border: 1px solid rgba(255, 69, 24, 0.4);
   border-radius: var(--radius);
   padding: 1.2rem 1.4rem;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.offline-warning-banner.is-online {
+  background: rgba(57, 231, 95, 0.07);
+  border-color: rgba(57, 231, 95, 0.4);
 }
 
 .offline-dot {
@@ -1179,6 +1192,12 @@ kbd {
   animation: pulse-dot 1.6s ease-in-out infinite;
   flex-shrink: 0;
   margin-top: 4px;
+}
+
+.offline-warning-banner.is-online .offline-dot {
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  animation: none;
 }
 
 @keyframes pulse-dot {
