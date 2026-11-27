@@ -1035,6 +1035,57 @@ kbd {
   flex-wrap: wrap;
 }
 
+.players-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.player-stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.player-stat-card.is-online {
+  border-color: rgba(57, 231, 95, 0.35);
+  background: rgba(57, 231, 95, 0.05);
+}
+
+.player-stat-card.is-offline {
+  border-color: rgba(148, 163, 184, 0.25);
+}
+
+.player-stat-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.player-stat-value {
+  font-family: "Chakra Petch", sans-serif;
+  font-size: 1.85rem;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.player-stat-card.is-online .player-stat-value {
+  color: var(--green);
+}
+
+@media (max-width: 640px) {
+  .players-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .player-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));

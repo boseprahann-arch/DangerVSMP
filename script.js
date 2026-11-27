@@ -115,19 +115,30 @@ function setHeroStatus(online, playerCount) {
 }
 
 // Update the large status badge in the Players section
-function setPlayersStatus(online, playerCount) {
+function setPlayersStatus(online, playerCount, onlineNames = []) {
   const badge = document.getElementById("players-status-badge");
   const dot   = document.getElementById("players-status-dot");
   const label = document.getElementById("players-status-label");
   const count = document.getElementById("players-count-label");
+  const statTotal   = document.getElementById("stat-total-players");
+  const statOnline  = document.getElementById("stat-online-players");
+  const statOffline = document.getElementById("stat-offline-players");
+
+  const known = loadKnownPlayers();
+  const total = Object.keys(known).length;
+  const currentOnline = online ? Math.max(playerCount, onlineNames.length) : 0;
+  const currentOffline = Math.max(0, total - (online ? onlineNames.length : 0));
+
+  if (statTotal) statTotal.textContent = String(total);
+  if (statOnline) statOnline.textContent = String(currentOnline);
+  if (statOffline) statOffline.textContent = String(currentOffline);
+
   if (!badge || !label) return;
   badge.className = "server-status-badge large " + (online ? "online" : "offline");
   label.textContent = online
-    ? `Server Online — ${playerCount} player${playerCount !== 1 ? "s" : ""} in-game`
+    ? `Server Online — ${currentOnline} player${currentOnline !== 1 ? "s" : ""} in-game`
     : "Server Offline";
   if (count) {
-    const known = loadKnownPlayers();
-    const total = Object.keys(known).length;
     count.textContent = total > 0 ? `${total} player${total !== 1 ? "s" : ""} ever played` : "";
   }
 }
@@ -249,14 +260,14 @@ async function fetchServerStatus() {
 
     if (loading) loading.style.display = "none";
     setHeroStatus(online, playerCount);
-    setPlayersStatus(online, playerCount);
+    setPlayersStatus(online, playerCount, onlineNames);
     setOfflineBanner(online);
     renderPlayerGrid(onlineNames);
 
   } catch {
     if (loading) loading.style.display = "none";
     setHeroStatus(false, 0);
-    setPlayersStatus(false, 0);
+    setPlayersStatus(false, 0, []);
     setOfflineBanner(false);
     renderPlayerGrid([]);
   }
