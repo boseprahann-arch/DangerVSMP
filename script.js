@@ -87,7 +87,8 @@ document.querySelectorAll(".launcher-tab").forEach((tab) => {
 
 const SERVER_HOST = "DangerVSMP.aternos.me";
 const SERVER_PORT = 30776;
-const API_URL = `https://api.mcstatus.io/v2/status/java/${SERVER_HOST}:${SERVER_PORT}`;
+const DIRECT_API_URL = "/api/status";
+const FALLBACK_API_URL = `https://api.mcstatus.io/v2/status/java/${SERVER_HOST}:${SERVER_PORT}`;
 const PLAYERS_KEY = "dangervsmp_ever_seen_players";
 
 // Load persisted player list (name → { name, firstSeen, lastSeen })
@@ -197,14 +198,30 @@ function renderPlayerGrid(onlineNames) {
   });
 }
 
-// Main fetch function
+// Main fetch function — tries instant direct TCP endpoint (/api/status on Vercel) first,
+// then falls back to mcstatus.io when running on static-only hosting (e.g. localhost python server)
+async function fetchStatusPayload() {
+  try {
+    const res = await fetch(`${DIRECT_API_URL}?t=${Date.now()}`, { cache: "no-store" });
+    if (res.ok) {
+      const contentType = res.headers.get("content-type") || "";
+      if (contentType.includes("application/json")) {
+        return await res.json();
+      }
+    }
+  } catch {
+    // Not on Vercel / serverless not available — fall back below
+  }
+
+  const res = await fetch(`${FALLBACK_API_URL}?t=${Date.now()}`, { cache: "no-store" });
+  return await res.json();
+}
+
 async function fetchServerStatus() {
-  const grid    = document.getElementById("player-grid");
   const loading = document.getElementById("player-loading");
 
   try {
-    const res  = await fetch(`${API_URL}?t=${Date.now()}`, { cache: "no-store" });
-    const data = await res.json();
+    const data = await fetchStatusPayload();
 
     const online      = data.online === true;
     const onlineNames = (online && data.players && Array.isArray(data.players.list))
@@ -256,8 +273,8 @@ if (refreshBtn) {
   });
 }
 
-// Initial fetch + poll every 20 seconds
+// Initial fetch + poll every 5 seconds for near-instant updates
 fetchServerStatus();
-setInterval(fetchServerStatus, 20_000);
+setInterval(fetchServerStatus, 5_000);
 
 
