@@ -87,7 +87,7 @@ document.querySelectorAll(".launcher-tab").forEach((tab) => {
 
 const SERVER_HOST = "DangerVSMP.aternos.me";
 const SERVER_PORT = 30776;
-const API_URL = `https://api.mcsrvstat.us/3/${SERVER_HOST}:${SERVER_PORT}`;
+const API_URL = `https://api.mcstatus.io/v2/status/java/${SERVER_HOST}:${SERVER_PORT}`;
 const PLAYERS_KEY = "dangervsmp_ever_seen_players";
 
 // Load persisted player list (name → { name, firstSeen, lastSeen })
@@ -190,10 +190,12 @@ async function fetchServerStatus() {
     const data = await res.json();
 
     const online      = data.online === true;
-    const onlineNames = (online && data.players && data.players.list)
-      ? data.players.list.map((p) => (typeof p === "string" ? p : p.name))
+    const onlineNames = (online && data.players && Array.isArray(data.players.list))
+      ? data.players.list
+          .map((p) => (typeof p === "string" ? p : (p.name_clean || p.name_raw || p.name || "")))
+          .filter(Boolean)
       : [];
-    const playerCount = (online && data.players) ? (data.players.online || 0) : 0;
+    const playerCount = (online && data.players) ? (data.players.online ?? onlineNames.length) : 0;
 
     // Persist any newly seen players
     if (onlineNames.length > 0) {
